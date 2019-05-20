@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--namespace: 命名空间, 每一个sql映射文件的namespace要唯一  
+    在以后,这个namespace特殊写法
+-->
+<mapper namespace="dao.CustomerMapper">
+	<!-- 写sql 
+	   查询: 使用<select>
+	 修改: <update>
+	 添加: <insert>
+	 删除: <delete>
+	-->
+	<!-- id: statement的唯一标示符 , 直接为dao层方法名
+	   parameterType: 输入参数类型, 如果是基本数据类型, 可以省略
+	   resultType: 返回值类型, 输出参数类型  自定义类型: 包名.类名
+	-->
+	<select id="queryById" parameterType="int" resultType="pojo.Customer">
+	       select *  from T_CUSTOMER where cid = #{cid} 
+	</select>
+	<select id="queryAll" resultType="pojo.Customer">
+		select *  from T_CUSTOMER
+	
+	</select>
+	<insert id="add" parameterType="pojo.Customer">
+	INSERT INTO T_CUSTOMER VALUES(seq_c.nextval,#{cname},#{gender},to_date(#{birthday},'yyyy-MM-dd'),#{cellphone},#{email},#{description})
+	</insert>
+	<update id="edit" parameterType="pojo.CustomerDemo">
+	update T_CUSTOMER set cname = #{customer.cname} ,gender=#{customer.gender} , birthday=to_date(#{customer.birthday},'yyyy-MM-dd') ,cellphone=#{customer.cellphone},email=#{customer.email},description=#{customer.description} where cid=#{customer.cid}
+	</update>
+	<delete id="deleteById" parameterType="int">
+	delete T_CUSTOMER where cid = #{cid}
+	</delete>
+	<!--  <resultMap type="Customer" id="Custmoer">
+		<id column=""/>
+	
+	</resultMap>-->
+	<select id="queryDuo" parameterType="pojo.CustomerDemo" resultType="pojo.Customer">
+	select * from T_CUSTOMER
+	<where>
+	<if test="customer.cname!=null and customer.cname !=''">
+		and cname=#{customer.cname}
+	</if>
+	<if test="customer.gender!=null and customer.gender !=''">
+		and gender=#{customer.gender}
+	</if>
+	<if test="customer.cellphone!=null and customer.cellphone !=''">
+		and cellphone=#{customer.cellphone}
+	</if>
+	<if test="customer.email!=null and customer.email !=''">
+		and email=#{customer.email}
+	</if>
+	</where>
+	
+	</select>
+</mapper>
