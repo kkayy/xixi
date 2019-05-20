@@ -1,16 +1,15 @@
 package test;
 
-import org.apache.ibatis.session.SqlSession;
 
-import dao.CustomerMapper;
+
 import pojo.Customer;
 import pojo.CustomerDemo;
 import service.CustomerService;
 import service.CustomerServiceImpl;
-import util.MybatisUtils;
+
 
 public class test {
-
+//
 	public static void main(String[] args) throws Exception {
 //		CustomerService cs = new CustomerServiceImpl();
 //		List<Customer> l = cs.queryById(1, "男");
